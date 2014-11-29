@@ -48,12 +48,12 @@ public abstract class PluginDependencyProvider<T extends Plugin> implements IPlu
                 dependency = (T) Bukkit.getPluginManager().getPlugin(getDependencyName());
 
                 if (this.dependency != null && this.dependency.isEnabled()) {
-                    this.hooked = true;
                     onHook();
+                    this.hooked = true;
                     EchoPet.getPlugin().getModuleLogger().info("[" + this.dependency.getName() + "] Successfully hooked");
                 }
             } catch (Exception e) {
-                EchoPet.getPlugin().getReflectionLogger().warning("Could not create a PluginDependencyProvider for: " + getDependencyName() + "! (Are you sure the type is valid?)");
+                EchoPet.getPlugin().getReflectionLogger().warning("Could not create a PluginDependencyProvider for: " + getDependencyName() + "! (Are you sure the type is valid?) - " + e.getMessage());
             }
         }
 
@@ -64,8 +64,8 @@ public abstract class PluginDependencyProvider<T extends Plugin> implements IPlu
                 if ((dependency == null) && (event.getPlugin().getName().equalsIgnoreCase(getDependencyName()))) {
                     try {
                         dependency = (T) event.getPlugin();
-                        hooked = true;
                         onHook();
+                        hooked = true;
                         EchoPet.getPlugin().getModuleLogger().info("[" + getDependencyName() + "] Successfully hooked");
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to hook plugin: " + event.getPlugin().getName());
@@ -77,8 +77,8 @@ public abstract class PluginDependencyProvider<T extends Plugin> implements IPlu
             protected void onDisable(PluginDisableEvent event) {
                 if ((dependency != null) && (event.getPlugin().getName().equalsIgnoreCase(getDependencyName()))) {
                     dependency = null;
-                    hooked = false;
                     onUnhook();
+                    hooked = false;
                     EchoPet.getPlugin().getModuleLogger().info("[" + getDependencyName() + "] Successfully unhooked");
                 }
             }

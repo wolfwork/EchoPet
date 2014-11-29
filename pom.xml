@@ -22,7 +22,7 @@
     <artifactId>EchoPet-Parent</artifactId>
     <name>EchoPet Parent</name>
     <packaging>pom</packaging>
-    <version>parent</version>
+    <version>v2</version>
     <url>http://github.com/DSH105/EchoPet</url>
 
     <properties>
@@ -36,6 +36,7 @@
         <module>modules/v1_7_R2</module>
         <module>modules/v1_7_R3</module>
         <module>modules/v1_7_R4</module>
+        <module>modules/v1_8_Spigot</module>
         <module>modules/EchoPet</module>
     </modules>
 
@@ -46,6 +47,14 @@
         <repository>
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>spigot-repo</id>
+            <url>http://repo.md-5.net/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>dsh-repo</id>
+            <url>http://repo.dsh105.com/</url>
         </repository>
         <repository>
             <id>hawk-repo</id>
@@ -95,5 +104,20 @@
                 <version>2.4</version>
             </plugin>
         </plugins>
+        
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>2.6</version>
+            </extension>
+        </extensions>
     </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>dsh105-ftp</id>
+            <url>ftp://repo.dsh105.com/</url>
+        </repository>
+    </distributionManagement>
 </project>
