@@ -30,6 +30,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Rabbit;
 import org.bukkit.entity.Villager.Profession;
 
 import java.util.ArrayList;
@@ -336,7 +337,7 @@ public class PetManager implements IPetManager {
         PetType petType = pet.getPetType();
 
         EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".pet.type", petType.toString());
-        EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".pet.name", pet.getPetNameWithoutColours());
+        EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".pet.name", pet.serialisePetName());
 
         for (PetData pd : pet.getPetData()) {
             EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".pet.data." + pd.toString().toLowerCase(), true);
@@ -346,7 +347,7 @@ public class PetManager implements IPetManager {
             PetType riderType = pet.getRider().getPetType();
 
             EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".rider.type", riderType.toString());
-            EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".rider.name", pet.getRider().getPetNameWithoutColours());
+            EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".rider.name", pet.getRider().serialisePetName());
             for (PetData pd : pet.getRider().getPetData()) {
                 EchoPet.getConfig(EchoPet.ConfigType.DATA).set(path + ".rider.data." + pd.toString().toLowerCase(), true);
             }
@@ -543,7 +544,14 @@ public class PetManager implements IPetManager {
             if (pd == PetData.SHIELD) {
                 ((IWitherPet) pet).setShielded(b);
             }
+            
+            if (pd == PetData.ELDER) {
+                ((IGuardianPet) pet).setElder(b);
+            }
 
+            if (pd.isType(PetData.Type.RABBIT_TYPE) && petType == PetType.RABBIT) {
+                ((IRabbitPet) pet).setRabbitType(Rabbit.Type.valueOf(pd.toString()));
+            }
 
             if (petType == PetType.HORSE) {
                 if (pd == PetData.CHESTED) {
@@ -616,6 +624,11 @@ public class PetManager implements IPetManager {
                     }
                 }
             }
+            
+            if (petType == PetType.GUARDIAN) {
+                
+            }
+            
             ListIterator<PetData> i = pet.getPetData().listIterator();
             while (i.hasNext()) {
                 PetData petData = i.next();

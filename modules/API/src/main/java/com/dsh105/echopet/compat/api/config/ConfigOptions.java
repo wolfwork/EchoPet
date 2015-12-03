@@ -120,7 +120,7 @@ public class ConfigOptions extends Options {
         });
         set("stripDiacriticsFromNames", true);
 
-        set("enableHumanSkinFixing", true, "Connects to Mojang session servers to attempt fto fix human skins");
+        set("enableHumanSkinFixing", true, "Connects to Mojang session servers to attempt to fix human skins");
         set("loadSavedPets", true, "Auto-load pets from last session");
         set("multiworldLoadOverride", true, "When true, if -loadSavedPets-", "is set to false, Pets will", "still be loaded when", "players switch worlds");
 
@@ -174,7 +174,7 @@ public class ConfigOptions extends Options {
             set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".interactMenu", true);
             set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".startFollowDistance", 12);
             set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".stopFollowDistance", 4);
-            set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".teleportDistance", 30);
+            set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".teleportDistance", 40);
 
             /*set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".attack.canDamagePlayers", false);
             set("pets." + petType.toString().toLowerCase().replace("_", " ") + ".attack.lockRange", 10);
